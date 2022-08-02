@@ -3,7 +3,7 @@
 	<div class="card">
 		<div class="card-header " style ="display: flex ; justify-content: space-between;" >
 			<div class="text" style="font-size: 25px;">
-				{{ __('Show Category') }}
+				Show Category : {{ $category->name }}
 			</div>
 			<div>
 				<form class="d-flex" role="search">
@@ -25,38 +25,17 @@
 				<table class="table table-bordered " style="text-align: center;">
 					<thead>
 					<tr>
-						<th>
-							STT
-						</th>
-						<th>Name</th>
+						<th>STT</th>
+						<th> Products Name </th>
 						<th>Quantity Products</th>
-						<th colspan="2">
-							Action
-						</th>
 					</tr>
 					</thead>
 					<tbody>
 
 					<tr>
 						<td>1</td>
-						<td>Apple</td>
-						<td>
-							30
-						</td>
-						<td>
-							<a href="" class="text">
-								<button type="button" class="btn btn-primary">
-									Show
-								</button>
-							</a>
-						</td>
-						<td class="text">
-							<form action="" method="POST">
-								@method('DELETE')
-								@csrf
-								<button type="submit" class="btn btn-primary">Delete</button>
-							</form>
-						</td>
+						<td>iphone 12</td>
+						<td></td>
 					</tr>
 					</tbody>
 				</table>

@@ -14,7 +14,6 @@ class BaseRepository implements RepositoryInterface
     {
         return $this->model->all();
     }
-
     public function getListById($id)
     {
         return $this->model->findOrFail($id);
@@ -31,7 +30,6 @@ class BaseRepository implements RepositoryInterface
     {
         return $this->model->findOrFail($id)->delete();
     }
-
     public function pagination($quantity)
     {
         // TODO: Implement pagination() method.
