@@ -34,9 +34,9 @@ class CategoryController extends Controller
         return view('category.add');
     }
 
-    public function store(Request $categories)
+    public function store(Request $request)
     {
-        $data = $categories->all();
+        $data = $request->all();
         try {
             $this->categoryRepository->create($data);
             return redirect()->route('category.store')->with('success', 'Add Category Success !');
