@@ -23,7 +23,7 @@
 			integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
 			crossorigin="anonymous"></script>
 	<link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sidebars/">
-	<link href="{{ asset('css/contact.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body>
 <div id="app">
