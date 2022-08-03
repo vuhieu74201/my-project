@@ -50,7 +50,7 @@
 						<td>{{$category->products[0]->count ?? 0}}
 						</td>
 						<td>
-							<a href="{{route('category.edit',['category'=>$category->id])}}" class="text">
+							<a href="{{route('category.show',['category'=>$category->id])}}" class="text">
 								<button type="button" class="btn btn-primary">
 									Update
 								</button>

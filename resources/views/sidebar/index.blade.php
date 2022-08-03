@@ -15,13 +15,13 @@
 			</a>
 		</li>
 		<li>
-			<a href="#" class="nav-link link-dark">
-				Orders
+			<a href="{{route('product.index')}}" class="nav-link link-dark">
+				Products
 			</a>
 		</li>
 		<li>
-			<a href="{{route('product.index')}}" class="nav-link link-dark">
-				Products
+			<a href="#" class="nav-link link-dark">
+				Orders
 			</a>
 		</li>
 		<li>

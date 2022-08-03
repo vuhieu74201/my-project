@@ -45,15 +45,15 @@ class CategoryController extends Controller
         }
     }
 
-    public function edit($id)
+    public function show($id)
     {
         $category = $this->categoryRepository->getListById($id);
-        return view('category.edit', compact('category'));
+        return view('category.show', compact('category'));
     }
 
-    public function update(Request $category, $id)
+    public function update(Request $request, $id)
     {
-        $data = $category->all();
+        $data = $request->all();
         try {
             $this->categoryRepository->update($id, $data);
             $this->categoryRepository->getListById($id);
