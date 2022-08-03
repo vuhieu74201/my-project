@@ -6,8 +6,9 @@
 				{{ __('Show Category') }}
 			</div>
 			<div>
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				<form  action="{{route('category.index')}}" class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Search category name..."
+						   aria-label="Search" name="name" value="{{app('request')->input('name')}}">
 					<button class="btn btn-outline-success" type="submit">Search</button>
 				</form>
 			</div>
@@ -35,14 +36,10 @@
 				<table class="table table-bordered " style="text-align: center;">
 					<thead>
 					<tr>
-						<th>
-							STT
-						</th>
+						<th>STT</th>
 						<th>Name</th>
 						<th>Quantity Products</th>
-						<th colspan="3">
-							Action
-						</th>
+						<th colspan="2">Action</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -50,15 +47,7 @@
 					<tr>
 						<td>{{$index+1}}</td>
 						<td>{{$category->name}}</td>
-						<td>
-							{{ "fix"}}
-						</td>
-						<td>
-							<a href="{{route('category.show',['category'=>$category->id])}}" class="text">
-								<button type="button" class="btn btn-primary">
-									Show
-								</button>
-							</a>
+						<td>{{$category->products[0]->count ?? 0}}
 						</td>
 						<td>
 							<a href="{{route('category.edit',['category'=>$category->id])}}" class="text">
@@ -81,4 +70,5 @@
 			</div>
 		</div>
 	</div>
+
 @stop

@@ -1,7 +1,7 @@
 @extends('home')
 @section('content')
 	<div class="card">
-		<div class="card-header " style ="display: flex ; justify-content: space-between;" >
+		<div class="card-header " style="display: flex ; justify-content: space-between;">
 			<div class="text" style="font-size: 25px;">
 				Show Category : {{ $category->name }}
 			</div>
@@ -26,15 +26,16 @@
 					<thead>
 					<tr>
 						<th>STT</th>
-						<th> Products Name </th>
+						<th> Products Name</th>
+						<th> Products Price</th>
 						<th>Quantity Products</th>
 					</tr>
 					</thead>
 					<tbody>
-
 					<tr>
 						<td>1</td>
 						<td>iphone 12</td>
+						<td></td>
 						<td></td>
 					</tr>
 					</tbody>

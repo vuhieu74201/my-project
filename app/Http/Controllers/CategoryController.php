@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -15,9 +16,16 @@ class CategoryController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = $this->categoryRepository->getAllList();
+        $categories = [];
+        if($request->has('name')) {
+            $categories = $this->categoryRepository->search($request->get('name'));
+        }
+        else {
+            $categories = $this->categoryRepository->getAll();
+        }
+
         return view('category.index', compact('categories'));
     }
 
@@ -37,12 +45,6 @@ class CategoryController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        $category = $this->categoryRepository->getListById($id);
-        return view('category.show', compact('category'));
-    }
-
     public function edit($id)
     {
         $category = $this->categoryRepository->getListById($id);
@@ -55,9 +57,11 @@ class CategoryController extends Controller
         try {
             $this->categoryRepository->update($id, $data);
             $this->categoryRepository->getListById($id);
-            return redirect()->route('category.index')->with('success', 'Update Category Success !');
+            Session::flash('success', 'Update Category Success !');
+            return redirect()->back();
         } catch (\Exception $error) {
-            return redirect()->route('category.index')->with('error', 'Update Category Error !');
+            Session::flash('error', 'Update Category Error !');
+            return redirect()->back();
         }
     }
 

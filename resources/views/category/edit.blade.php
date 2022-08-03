@@ -7,6 +7,16 @@
 			</div>
 		</div>
 		<div class="card-body">
+			@if (Session::has('success'))
+				<div class="alert alert-success">
+					<p>{{ Session::get('success') }}</p>
+				</div><br/>
+			@endif
+			@if (Session::has('error'))
+				<div class="alert alert-danger">
+					<p>{{Session::get('error') }}</p>
+				</div><br/>
+			@endif
 			<form action="{{route('category.update',['category'=>$category->id])}}" method="POST">
 				@method('PATCH')
 				@csrf

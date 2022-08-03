@@ -1,7 +1,7 @@
 @extends('home')
 @section('content')
 	<div class="card">
-		<div class="card-header " style ="display: flex ; justify-content: space-between" >
+		<div class="card-header " style="display: flex ; justify-content: space-between">
 			<div class="text" style="font-size: 25px">
 				{{ __('Add Category') }}
 			</div>
@@ -13,7 +13,7 @@
 					<label for="exampleFormControlInput1">
 						Name Category :
 					</label>
-					<input type="text"  name="name" class="form-control" id="exampleFormControlInput1">
+					<input type="text" name="name" class="form-control" id="exampleFormControlInput1">
 				</div>
 				<div class="form-group" style="margin-top: 20px">
 					<button type="submit" class="btn text btn-primary">
@@ -23,5 +23,4 @@
 			</form>
 		</div>
 	</div>
-
 @stop
