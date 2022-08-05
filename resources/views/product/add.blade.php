@@ -29,8 +29,8 @@
 					<label for="country" class="form-label">Category Name :</label>
 					<select name ="category_id" class="form-select" id="country" required>
 						<option value=""> Choose Category Name ...</option>
-						@foreach($products as $product)
-							<option value="{{$product->category_id}}">{{$product->category->name}}</option>
+						@foreach($categories as $category)
+							<option value="{{$category->id}}">{{$category->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -53,7 +53,7 @@
 					<textarea name="description" class="form-control" id="exampleFormControlInput1" rows="3"></textarea>
 				</div>
 				<div class="form-group" style="margin-top: 20px">
-					<button type="submit" class="btn text btn-primary">
+					<button type="submit" class="btn btn-primary">
 						Success
 					</button>
 				</div>

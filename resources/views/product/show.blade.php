@@ -1,8 +1,8 @@
 	@extends('home')
 @section('content')
 	<div class="card">
-		<div class="card-header " style="display: flex ; justify-content: space-between">
-			<div class="text" style="font-size: 25px">
+		<div class="card-header ">
+			<div class="text">
 				{{ __('Add Product') }}
 			</div>
 		</div>
@@ -29,9 +29,9 @@
 				<div class="form-group">
 					<label for="country" class="form-label">Category Name :</label>
 					<select name="category_id" class="form-select" id="country" required>
-						<option value="{{$product->category->id}}">{{$product->category->name}}</option>
-						@foreach($category as $index)
-							<option value="{{$index->category_id}}">{{$index->category->name}}</option>
+						@foreach($categories as $category)
+							{{$selected = $product->category->id == $category->id ? "selected": ""}}
+							<option value="{{$category->id}}" {{$selected}}>{{$category->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -53,8 +53,8 @@
 					</label>
 					<textarea name="description" class="form-control" id="exampleFormControlInput1" rows="3">{{$product->description}}</textarea>
 				</div>
-				<div class="form-group" style="margin-top: 20px">
-					<button type="submit" class="btn text btn-primary">
+				<div class="form-group" style="margin-top: 20px;">
+					<button type="submit" class="btn btn-primary">
 						Update
 					</button>
 				</div>

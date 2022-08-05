@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
@@ -17,3 +19,5 @@ use App\Http\Controllers\CategoryController;
 Route::get('/','App\Http\Controllers\HomeController@index')->name('home');
 Route::resource('product',ProductController::class);
 Route::resource('category',CategoryController::class);
+Route::resource('customer',CustomerController::class);
+Route::resource('order',OrderController::class);

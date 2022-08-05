@@ -18,7 +18,7 @@ class Category extends Model
 
     public function products(): HasMany
     {
-        return $this->hasMany('App\Models\Product')->selectRaw("SUM(quantity) as count");
+        return $this->hasMany(Product::class)->selectRaw("*");
     }
 
 }

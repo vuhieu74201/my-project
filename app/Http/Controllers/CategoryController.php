@@ -24,6 +24,14 @@ class CategoryController extends Controller
         }
         else {
             $categories = $this->categoryRepository->getAll();
+
+        }
+
+        foreach ($categories as $category) {
+            $category->quantity = 0;
+            foreach($category->products as $product) {
+                $category->quantity+= $product->quantity;
+            }
         }
 
         return view('category.index', compact('categories'));
@@ -49,6 +57,12 @@ class CategoryController extends Controller
     {
         $category = $this->categoryRepository->getListById($id);
         return view('category.show', compact('category'));
+    }
+
+    public function edit($id)
+    {
+        $category = $this->categoryRepository->getListById($id);
+        return view('category.edit', compact('category'));
     }
 
     public function update(Request $request, $id)

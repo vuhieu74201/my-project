@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -9,10 +10,12 @@ use Illuminate\Support\Facades\Session;
 class ProductController extends Controller
 {
     protected $productRepository;
+    protected $categoryRepository;
 
-    public function __construct(ProductRepositoryInterface $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository)
     {
         $this->productRepository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function index(Request $request)
@@ -29,8 +32,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        $products = $this->productRepository->getAll();
-        return view('product.add',compact('products'));
+        $categories = $this->categoryRepository->getAll();
+        return view('product.add',compact('categories'));
     }
 
     public function store(Request $request)
@@ -47,8 +50,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = $this->productRepository->getListById($id);
-        $category = $this->productRepository->getAll();
-        return view('product.show', compact('product','category'));
+        $categories = $this->categoryRepository->getAll();
+        return view('product.show', compact('product','categories'));
     }
 
     public function edit($id)

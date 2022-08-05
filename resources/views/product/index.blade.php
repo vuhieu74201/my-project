@@ -1,8 +1,8 @@
 @extends('home')
 @section('content')
 	<div class="card">
-		<div class="card-header " style ="display: flex ; justify-content: space-between" >
-			<div class="text" style="font-size: 25px">
+		<div class="card-header ">
+			<div class="text">
 				{{ __('Show Product') }}
 			</div>
 			<div>
@@ -14,7 +14,7 @@
 			</div>
 			<div class="" style="">
 				<a href="{{route('product.create')}}" class="">
-					<button type="button" class="btn text btn-primary">
+					<button type="button" class="btn btn-primary">
 						Add Product
 					</button>
 				</a>
@@ -69,18 +69,17 @@
 								<form action="{{route('product.destroy',['product'=>$product->id])}}" method="POST">
 									@method('DELETE')
 									@csrf
-									<button type="submit" class="btn btn-primary">Delete</button>
+									<button onclick="return confirm('Are you sure you want to delete this item?');"
+											type="submit" class="btn btn-primary">
+										Delete
+									</button>
 								</form>
 							</td>
 						</tr>
 					@endforeach
-
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 @stop
-
-
-
