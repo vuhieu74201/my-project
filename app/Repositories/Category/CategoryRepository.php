@@ -11,4 +11,5 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         parent::__construct($category);
     }
+
 }

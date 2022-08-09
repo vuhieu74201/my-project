@@ -1,4 +1,12 @@
 .alert{
     font-size: 20px;
     text-align: center;
+    text-transform: capitalize;
+}
+.text{
+    font-size: 25px;
+}
+.card-header{
+    display: flex ;
+    justify-content: space-between;
 }

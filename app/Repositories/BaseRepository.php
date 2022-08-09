@@ -48,4 +48,5 @@ class BaseRepository implements RepositoryInterface
     {
         // TODO: Implement pagination() method.
     }
+
 }

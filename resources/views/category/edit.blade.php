@@ -28,8 +28,8 @@
 						   value="{{$category->name}}">
 				</div>
 				<div class="form-group" style="margin-top: 20px">
-					<button type="submit" class="btn text btn-primary">
-						Update Category
+					<button type="submit" class="btn btn-primary">
+						Update
 					</button>
 				</div>
 			</form>
