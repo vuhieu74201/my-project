@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Customer\CustomerRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -11,20 +13,24 @@ class ProductController extends Controller
 {
     protected $productRepository;
     protected $categoryRepository;
+    protected $productService;
 
-    public function __construct(ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository)
-    {
-        $this->productRepository = $productRepository;
+    public function __construct(
+        ProductRepositoryInterface $productRepository,
+        CategoryRepositoryInterface $categoryRepository,
+        ProductService $productService
+    ) {
         $this->categoryRepository = $categoryRepository;
+        $this->productService = $productService;
+        $this->productRepository = $productRepository;
     }
 
     public function index(Request $request)
     {
         $products = [];
-        if($request->has('name')) {
+        if ($request->has('name')) {
             $products = $this->productRepository->search($request->get('name'));
-        }
-        else {
+        } else {
             $products = $this->productRepository->getAll();
         }
         return view('product.index', compact('products'));
@@ -33,7 +39,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = $this->categoryRepository->getAll();
-        return view('product.add',compact('categories'));
+        return view('product.add', compact('categories'));
     }
 
     public function store(Request $request)
@@ -49,14 +55,9 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = $this->productRepository->getListById($id);
+        $product = $this->productService->getListById($id);
         $categories = $this->categoryRepository->getAll();
-        return view('product.show', compact('product','categories'));
-    }
-
-    public function edit($id)
-    {
-        //
+        return view('product.show', compact('product', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -76,7 +77,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         try {
-            $this->productRepository->delete($id);
+            $this->productService->delete($id);
             return redirect()->route('product.index')->with('success', 'Delete Product Success !');
         } catch (\Exception $error) {
             return redirect()->route('product.index')->with('error', 'Delete Product Error !');

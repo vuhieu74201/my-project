@@ -2,38 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
     protected $categoryRepository;
-
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
-    {
+    protected $categoryService;
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepository,
+        CategoryService $categoryService
+    ) {
         $this->categoryRepository = $categoryRepository;
+        $this->categoryService = $categoryService;
     }
 
     public function index(Request $request)
     {
         $categories = [];
-        if($request->has('name')) {
-            $categories = $this->categoryRepository->search($request->get('name'));
-        }
-        else {
-            $categories = $this->categoryRepository->getAll();
-
-        }
-
-        foreach ($categories as $category) {
-            $category->quantity = 0;
-            foreach($category->products as $product) {
-                $category->quantity+= $product->quantity;
-            }
-        }
-
+        $categories = $this->categoryService->getAll($request);
         return view('category.index', compact('categories'));
     }
 
@@ -55,13 +44,13 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        $category = $this->categoryRepository->getListById($id);
+        $category = $this->categoryService->getListById($id);
         return view('category.show', compact('category'));
     }
 
     public function edit($id)
     {
-        $category = $this->categoryRepository->getListById($id);
+        $category = $this->categoryService->getListById($id);
         return view('category.edit', compact('category'));
     }
 
@@ -82,7 +71,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         try {
-            $this->categoryRepository->delete($id);
+            $this->categoryService->delete($id);
             return redirect()->route('category.index')->with('success', 'Delete Category Success !');
         } catch (\Exception $error) {
             return redirect()->route('category.index')->with('error', 'Delete Category Error !');

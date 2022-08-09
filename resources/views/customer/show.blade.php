@@ -45,36 +45,55 @@
 					Show Orders By : {{$customer->name}}
 				</div>
 				<div class="title-contact card-body">
-					<table class="table table-hover" style="text-align: center;">
-						<thead>
-						<tr>
-							<th>STT</th>
-							<th>Order Name </th>
-							<th>Total price</th>
-							<th>Date buy</th>
-							<th colspan="1">
-								Action
-							</th>
-						</tr>
-						</thead>
-						<tbody>
-						<tr>
-							<td></td>
-							<td>
-								<a href="" class=""></a>
-							</td>
-							<td></td>
-							<td></td>
-							<td class="text">
-								<form action="" method="POST">
-									@method('DELETE')
-									@csrf
-									<button type="submit" class="btn btn-primary">+</button>
-								</form>
-							</td>
-						</tr>
-						</tbody>
-					</table>
+					<div class="title-contact">
+						<table class="table table-hover" style="text-align: center;">
+							<thead>
+							<tr>
+
+								<th scope="col">STT</th>
+								<th scope="col">Order #</th>
+								<th scope="col">Bill to Name</th>
+								<th scope="col">Purchased on</th>
+								<th scope="col">Status</th>
+								<th scope="col" colspan="2">Actions</th>
+							</tr>
+							</thead>
+							<tbody>
+                                @foreach($customer->orders as $index => $order)
+								<tr>
+									<td>{{$index +1}}</td>
+									<td>#{{$order->order_code}}</td>
+									<td>{{$order->bill_name}}</td>
+									<td>{{$order->updated_at}}</td>
+									@if($order->status == 0)
+										<td>Cancel</td>
+									@elseif($order->status == 1)
+										<td>Pending</td>
+									@else
+										<td>Complete</td>
+									@endif
+									<td>
+										<a href="{{route('order.show',['order'=>$order->id])}}" class="">
+											<button type="button" class="btn btn-primary">
+												View
+											</button>
+										</a>
+									</td>
+									<td class="text">
+										<form action="{{route('order.destroy',['order'=>$order->id])}}" method="POST">
+											@method('DELETE')
+											@csrf
+											<button onclick="return confirm('Are you sure you want to delete this item?');"
+													type="submit" class="btn btn-primary">
+												Delete
+											</button>
+										</form>
+									</td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 

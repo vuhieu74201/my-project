@@ -12,4 +12,9 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         parent::__construct($order);
     }
 
+    public function searchOrder($billName = "")
+    {
+        return $this->model->where('bill_name', 'LIKE', '%' . $billName . '%')->get();
+    }
+
 }
