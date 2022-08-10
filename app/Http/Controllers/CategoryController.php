@@ -21,7 +21,6 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $categories = [];
         $categories = $this->categoryService->getAll($request);
         return view('category.index', compact('categories'));
     }
@@ -33,9 +32,8 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
         try {
-            $this->categoryRepository->create($data);
+            $this->categoryService->create($request);
             return redirect()->route('category.store')->with('success', 'Add Category Success !');
         } catch (\Exception $error) {
             return redirect()->route('category.store')->with('error', 'Add Category Error !');
@@ -56,10 +54,9 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->all();
         try {
-            $this->categoryRepository->update($id, $data);
-            $this->categoryRepository->getListById($id);
+            $this->categoryService->update($request, $id);
+            $this->categoryService->getListById($id);
             Session::flash('success', 'Update Category Success !');
             return redirect()->back();
         } catch (\Exception $error) {

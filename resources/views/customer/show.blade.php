@@ -5,13 +5,6 @@
 			<div class="text">
 				{{ __('Show Customers') }} : {{$customer->name}}
 			</div>
-			<div>
-				<form  action="{{route("customer.index")}}" class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search customers name..."
-						   aria-label="Search" name="name" value="{{app('request')->input('name')}}">
-					<button class="btn btn-outline-success" type="submit">Search</button>
-				</form>
-			</div>
 		</div>
 		<div class="card-body">
 			@if (Session::has('success'))
@@ -49,7 +42,6 @@
 						<table class="table table-hover" style="text-align: center;">
 							<thead>
 							<tr>
-
 								<th scope="col">STT</th>
 								<th scope="col">Order #</th>
 								<th scope="col">Bill to Name</th>
@@ -65,16 +57,19 @@
 									<td>#{{$order->order_code}}</td>
 									<td>{{$order->bill_name}}</td>
 									<td>{{$order->updated_at}}</td>
-									@if($order->status == 0)
-										<td>Cancel</td>
-									@elseif($order->status == 1)
-										<td>Pending</td>
-									@else
-										<td>Complete</td>
-									@endif
+									<td style="color: red;">
+										@if($order->status == 0)
+											Cancel
+										@elseif($order->status == 1)
+											Pending
+										@else
+											Complete
+										@endif
+									</td>
+
 									<td>
 										<a href="{{route('order.show',['order'=>$order->id])}}" class="">
-											<button type="button" class="btn btn-primary">
+											<button type="button" class="btn btn-outline-success">
 												View
 											</button>
 										</a>
@@ -84,7 +79,7 @@
 											@method('DELETE')
 											@csrf
 											<button onclick="return confirm('Are you sure you want to delete this item?');"
-													type="submit" class="btn btn-primary">
+													type="submit" class="btn btn-outline-danger">
 												Delete
 											</button>
 										</form>

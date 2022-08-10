@@ -23,7 +23,7 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function OrderProduct(): hasMany
+    public function orderProducts(): hasMany
     {
         return $this->hasMany(OrderProduct::class)
                     ->selectRaw( 'product_id , SUM(quantity) as count')

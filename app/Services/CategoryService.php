@@ -37,8 +37,21 @@ class CategoryService
         return $this->categoryRepository->getListById($id);
     }
 
+    public function create(Request $request)
+    {
+        $data = [
+            'name' => $request->input('name'),
+        ];
+        return $this ->categoryRepository->create($data);
+    }
+
     public function update(Request $request, $id)
     {
+        $data = [
+            'name' => $request->input('name'),
+        ];
+        return $this ->categoryRepository->update($id,$data);
+
     }
 
     public function delete($id)

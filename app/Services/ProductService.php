@@ -19,9 +19,44 @@ class ProductService
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function getAll(Request $request)
+    {
+        if ($request->has('name')) {
+            $products = $this->productRepository->search($request->get('name'));
+        } else {
+            $products = $this->productRepository->getAll();
+        }
+        return $products;
+    }
+
     public function getListById($id)
     {
         return $this->productRepository->getListById($id);
+    }
+
+    public function create(Request $request)
+    {
+        $data = [
+            'category_id'=>$request->input('category_id') ,
+            'name' =>$request->input('name') ,
+            'price'=>$request->input('price'),
+            'quantity'=>$request->input('quantity'),
+            'description'=>$request->input('description'),
+        ];
+        return $this->productRepository->create($data);
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = [
+            'category_id'=>$request->input('category_id') ,
+            'name' =>$request->input('name') ,
+            'price'=>$request->input('price'),
+            'quantity'=>$request->input('quantity'),
+            'description'=>$request->input('description'),
+        ];
+        return $this->productRepository->update($id,$data);
     }
 
     public function delete($id)

@@ -14,7 +14,7 @@
 			</div>
 			<div class="">
 				<a href="{{route('category.create')}}">
-					<button type="button" class="btn btn-primary">
+					<button type="button" class="btn btn-outline-primary">
 						Add Category
 					</button>
 				</a>
@@ -41,8 +41,8 @@
 							<td>{{$product->price}}</td>
 							<td>{{$product->quantity}}</td>
 							<td>
-								<a href="" class="text">
-									<button type="button" class="btn btn-primary">
+								<a href="{{route('product.show',['product'=>$product->id])}}" class="text">
+									<button type="button" class="btn btn-outline-success">
 										Update
 									</button>
 								</a>
@@ -52,7 +52,7 @@
 									@method('DELETE')
 									@csrf
 									<button onclick="return confirm('Are you sure you want to delete this item?');"
-											type="submit" class="btn btn-primary">Delete
+											type="submit" class="btn btn-outline-danger">Delete
 									</button>
 								</form>
 							</td>

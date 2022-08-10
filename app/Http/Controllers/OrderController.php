@@ -2,57 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Customer\CustomerRepositoryInterface;
-use App\Repositories\Order\OrderRepositoryInterface;
-use App\Repositories\OrderProduct\OrderProductRepositoryInterface;
-use App\Repositories\Product\ProductRepositoryInterface;
+use App\Services\CustomerService;
+use App\Services\OrderService;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
     protected $orderRepository;
-    protected $orderProductRepository;
-    protected $customerRepository;
-    protected $productRepository;
-
+    protected $customerService;
+    protected $productService;
+    protected $orderService;
 
 
     public function __construct(
-        OrderRepositoryInterface $orderRepository,
-        OrderProductRepositoryInterface $orderProductRepository,
-        CustomerRepositoryInterface $customerRepository,
-        ProductRepositoryInterface $productRepository
+        CustomerService $customerService,
+        ProductService $productService,
+        OrderService $orderService
     ) {
-        $this->orderRepository = $orderRepository;
-        $this->orderProductRepository = $orderProductRepository;
-        $this->customerRepository = $customerRepository;
-        $this->productRepository = $productRepository;
+        $this->customerService = $customerService;
+        $this->productService = $productService;
+        $this->orderService = $orderService;
     }
 
     public function index(Request $request)
     {
-        $orders = [];
-        if ($request->has('name', 'fromDate', 'toDate')) {
-            $orders = $this->orderRepository->searchOrder($request->get('name'));
-        } else {
-            $orders = $this->orderRepository->getAll();
-        }
+        $orders = $this->orderService->getAll($request);
         return view('order.index', compact('orders'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $customers = $this->customerRepository->getAll();
-        $products = $this->productRepository->getAll();
-        return view('order.add',compact('customers','products'));
+        $customers = $this->customerService->getAll($request);
+        $products = $this->productService->getAll($request);
+        return view('order.add', compact('customers', 'products'));
     }
 
     public function store(Request $request)
     {
         $data = $request->all();
         try {
-            $this->orderRepository->create($data);
-            $this->orderProductRepository->create($data);
+//            $this->orderService->create($data);
+//            $this->orderProductRepository->create($data);
             return redirect()->back()->with('success', 'Add Order Success !');
         } catch (\Exception $error) {
             return redirect()->back()->with('error', 'Add Order Error !');
@@ -61,28 +53,30 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = $this->orderRepository->getListById($id);
-
+        $order = $this->orderService->getListById($id);
         return view('order.show', compact('order'));
-    }
-
-    public function edit($id)
-    {
-        //
     }
 
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $this->orderService->update($id, $request);
+            $this->orderService->getListById($id);
+            Session::flash('success', 'Update Status Success !');
+            return redirect()->back();
+        } catch (\Exception $error) {
+            Session::flash('error', 'Update Status Error !');
+            return redirect()->back();
+        }
     }
 
     public function destroy($id)
     {
         try {
-            $this->orderRepository->delete($id);
-            return redirect()->route('order.index')->with('success', 'Delete Product Success !');
+            $this->orderService->delete($id);
+            return redirect()->route('order.index')->with('success', 'Delete order Success !');
         } catch (\Exception $error) {
-            return redirect()->route('order.index')->with('error', 'Delete Product Error !');
+            return redirect()->route('order.index')->with('error', 'Delete order Error !');
         }
     }
 }

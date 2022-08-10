@@ -7,7 +7,7 @@
 			</div>
 			<div class="" style="">
 				<a href="{{route('order.create')}}" class="">
-					<button type="button" class="btn btn-primary">
+					<button type="button" class="btn btn-outline-primary">
 						Add Order
 					</button>
 				</a>
@@ -58,20 +58,31 @@
 							<td>#{{$order->order_code}}</td>
 							<td>{{$order->bill_name}}</td>
 							<td>{{$order->created_at}}</td>
-							<td></td>
-							@if($order->status == 0)
-								<td>Cancel</td>
-							@elseif($order->status == 1)
-								<td>Pending</td>
-							@else
-								<td>Complete</td>
-							@endif
+							<td>{{number_format($order->sub_total,0,',','.')}}</td>
+							<td style="color: red;">
+								@if($order->status == 0)
+									Cancel
+								@elseif($order->status == 1)
+									Pending
+								@else
+									Complete
+								@endif
+							</td>
 							<td>
 								<a href="{{route('order.show',['order'=>$order->id])}}" class="">
-									<button type="button" class="btn btn-primary">
+									<button type="button" class="btn btn-outline-success">
 										View
 									</button>
 								</a>
+							</td>
+							<td>
+								<form action="{{route("order.destroy",['order'=>$order->id])}}" method="POST">
+									@method('DELETE')
+									@csrf
+									<button onclick="return confirm('Are you sure you want to delete this item?');"
+											type="submit" class="btn btn-outline-danger">Delete
+									</button>
+								</form>
 							</td>
 						</tr>
 					@endforeach
