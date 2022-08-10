@@ -3,23 +3,15 @@
 	<div class="card">
 		<div class="card-header ">
 			<div class="text">
-				{{ __('Show Category') }}
+				{{ __('Show Customers') }}
 			</div>
 			<div>
-				<form action="{{route('category.index')}}" class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search category name..."
+				<form action="{{route("customer.index")}}" class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Search customers name..."
 						   aria-label="Search" name="name" value="{{app('request')->input('name')}}">
 					<button class="btn btn-outline-success" type="submit">Search</button>
 				</form>
 			</div>
-			<div class="">
-				<a href="{{route('category.create')}}">
-					<button type="button" class="btn btn-outline-primary">
-						Add Category
-					</button>
-				</a>
-			</div>
-
 		</div>
 		<div class="card-body">
 			@if (Session::has('success'))
@@ -38,29 +30,26 @@
 					<tr>
 						<th>STT</th>
 						<th>Name</th>
-						<th>Quantity Products</th>
-						<th colspan="2">Action</th>
+						<th>Email</th>
+						<th>Phone</th>
+						<th>Address</th>
+						<th colspan="1">Action</th>
 					</tr>
 					</thead>
-					<tbody>
-					@foreach($categories as $index => $category )
+					@foreach($customers as $index => $customer)
+						<tbody>
 						<tr>
 							<td>{{$index+1}}</td>
 							<td>
-								<a href="{{route('category.show',['category'=>$category->id])}}">
-									{{$category->name}}
+								<a href="{{route("customer.show",['customer'=>$customer->id])}}" class="">
+									{{$customer->name}}
 								</a>
 							</td>
-							<td>{{$category->quantity}}</td>
-							<td>
-								<a href="{{route('category.edit',['category'=>$category->id])}}" class="text">
-									<button type="button" class="btn btn-outline-success">
-										Update
-									</button>
-								</a>
-							</td>
+							<td>{{$customer->email}}</td>
+							<td>{{$customer->UserProfile->phone ?? null }}</td>
+							<td>{{$customer->UserProfile->address ?? null}}</td>
 							<td class="text">
-								<form action="{{route('category.destroy',['category'=>$category->id])}}" method="POST">
+								<form action="{{route("customer.destroy",['customer'=>$customer->id])}}" method="POST">
 									@method('DELETE')
 									@csrf
 									<button onclick="return confirm('Are you sure you want to delete this item?');"
@@ -69,8 +58,8 @@
 								</form>
 							</td>
 						</tr>
+						</tbody>
 					@endforeach
-					</tbody>
 				</table>
 			</div>
 		</div>

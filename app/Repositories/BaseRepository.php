@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class BaseRepository implements RepositoryInterface
 {
@@ -44,8 +43,4 @@ class BaseRepository implements RepositoryInterface
         return $this->model->where('name', 'LIKE', '%' . $name . '%')->get();
     }
 
-    public function pagination($quantity)
-    {
-        // TODO: Implement pagination() method.
-    }
 }

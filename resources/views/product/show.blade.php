@@ -1,8 +1,8 @@
-@extends('home')
+	@extends('home')
 @section('content')
 	<div class="card">
-		<div class="card-header " style="display: flex ; justify-content: space-between">
-			<div class="text" style="font-size: 25px">
+		<div class="card-header ">
+			<div class="text">
 				{{ __('Add Product') }}
 			</div>
 		</div>
@@ -17,20 +17,21 @@
 					<p>{{Session::get('error') }}</p>
 				</div><br/>
 			@endif
-			<form action="{{route('product.store')}}" method="POST">
+			<form action="" method="POST">
+				@method('PATCH')
 				@csrf
 				<div class="form-group">
 					<label for="exampleFormControlInput1">
 						Name product :
 					</label>
-					<input type="text" name="name" class="form-control" id="exampleFormControlInput1">
+					<input type="text" name="name" class="form-control" id="exampleFormControlInput1" value="{{$product->name}}">
 				</div>
 				<div class="form-group">
 					<label for="country" class="form-label">Category Name :</label>
-					<select name ="category_id" class="form-select" id="country" required>
-						<option value=""> Choose Category Name ...</option>
+					<select name="category_id" class="form-select" id="country" required>
 						@foreach($categories as $category)
-							<option value="{{$category->id}}">{{$category->name}}</option>
+							{{$selected = $product->category->id == $category->id ? "selected": ""}}
+							<option value="{{$category->id}}" {{$selected}}>{{$category->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -38,26 +39,27 @@
 					<label for="exampleFormControlInput1">
 						Price product :
 					</label>
-					<input type="text" name="price" class="form-control" id="exampleFormControlInput1">
+					<input type="text" name="price" class="form-control" id="exampleFormControlInput1" value="{{$product->price}}" >
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlInput1">
 						Quantity product :
 					</label>
-					<input type="text" name="quantity" class="form-control" id="exampleFormControlInput1">
+					<input type="text" name="quantity" class="form-control" id="exampleFormControlInput1" value="{{$product->quantity}}">
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlInput1">
 						Describe :
 					</label>
-					<textarea name="description" class="form-control" id="exampleFormControlInput1" rows="3"></textarea>
+					<textarea name="description" class="form-control" id="exampleFormControlInput1" rows="3">{{$product->description}}</textarea>
 				</div>
-				<div class="form-group" style="margin-top: 20px">
-					<button type="submit" class="btn btn-outline-success">
-						Success
+				<div class="form-group" style="margin-top: 20px;">
+					<button type="submit" class="btn btn-primary">
+						Update
 					</button>
 				</div>
 			</form>
 		</div>
 	</div>
+
 @stop
