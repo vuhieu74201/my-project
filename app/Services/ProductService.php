@@ -44,7 +44,6 @@ class ProductService
             'description'=>$request->input('description'),
         ];
         return $this->productRepository->create($data);
-
     }
 
     public function update(Request $request, $id)

@@ -29,7 +29,6 @@ class CustomerService
     public function getListById($id)
     {
         return $this->customerRepository->getListById($id);
-
     }
 
     public function delete($id)

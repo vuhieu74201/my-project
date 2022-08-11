@@ -45,11 +45,11 @@ class User extends Authenticatable
 
     public function UserProfile(): HasOne
     {
-        return $this->hasOne(UserProfile::class)->selectRaw("*");
+        return $this->hasOne(UserProfile::class);
     }
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class)->selectRaw("*");
+        return $this->hasMany(Order::class);
     }
 
 }

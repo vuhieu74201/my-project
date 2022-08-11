@@ -10,11 +10,9 @@ use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
-    protected $orderRepository;
     protected $customerService;
     protected $productService;
     protected $orderService;
-
 
     public function __construct(
         CustomerService $customerService,
@@ -41,10 +39,8 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
         try {
-//            $this->orderService->create($data);
-//            $this->orderProductRepository->create($data);
+            $this->orderService->createOrder($request);
             return redirect()->back()->with('success', 'Add Order Success !');
         } catch (\Exception $error) {
             return redirect()->back()->with('error', 'Add Order Error !');
@@ -60,7 +56,7 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $this->orderService->update($id, $request);
+            $this->orderService->update($request, $id);
             $this->orderService->getListById($id);
             Session::flash('success', 'Update Status Success !');
             return redirect()->back();

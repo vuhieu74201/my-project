@@ -25,7 +25,7 @@
 				<div>Customer : {{$order->User->name}}</div>
 				<div style="display:flex;margin: 20px 0;">
 					<label for="status" class="">Status :</label>
-					<select name="status" id="status" style="color: red;margin-left:10px;width: 10%;height:30px;" required>
+					<select name="status" id="status" style="color: red;margin-left:10px;width: 10%;height:30px;" >
 						@if($order->status == 0)
 							<option value="0">Cancel</option>
 						@elseif($order->status == 1)
