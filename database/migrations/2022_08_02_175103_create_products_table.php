@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('name');
             $table->string('price');
-            $table->string('import_quantity');
+            $table->string('quantity');
             $table->string('description');
             $table->timestamps();
         });

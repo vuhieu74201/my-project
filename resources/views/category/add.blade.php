@@ -16,11 +16,12 @@
 					<input type="text" name="name" class="form-control" id="exampleFormControlInput1">
 				</div>
 				<div class="form-group" style="margin-top: 20px">
-					<button type="submit" class="btn text btn-primary">
+					<button type="submit" class="btn btn-primary">
 						Add Category
 					</button>
 				</div>
 			</form>
 		</div>
 	</div>
+
 @stop

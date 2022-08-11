@@ -15,17 +15,17 @@
 			</a>
 		</li>
 		<li>
-			<a href="#" class="nav-link link-dark">
-				Orders
-			</a>
-		</li>
-		<li>
 			<a href="{{route('product.index')}}" class="nav-link link-dark">
 				Products
 			</a>
 		</li>
 		<li>
-			<a href="#" class="nav-link link-dark">
+			<a href="{{route('order.index')}}" class="nav-link link-dark">
+				Orders
+			</a>
+		</li>
+		<li>
+			<a href="{{route('customer.index')}}" class="nav-link link-dark">
 				Customers
 			</a>
 		</li>
@@ -52,4 +52,3 @@
 		</ul>
 	</div>
 </div>
-
