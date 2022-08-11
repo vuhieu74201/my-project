@@ -12,9 +12,18 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         parent::__construct($order);
     }
 
-    public function searchOrder($billName = "", $from = null, $to = null)
+    public function searchOrder($name = "", $from = null, $to = null)
     {
-        $orders = $this->model->where('bill_name', 'LIKE', '%' . $billName . '%');
+        $orders = $this->model->where('bill_name', 'LIKE', '%' . $name . '%')
+                              ->orWhere('order_code', 'LIKE', '%' . $name . '%')
+                              ->orWhereHas('products', function ($q) use ($name)
+                                    {
+                                        return $q->where('name', 'like', '%' . $name . '%');
+                                    })
+                              ->orWhereHas('user', function ($q) use ($name)
+                                     {
+                                         return $q->where('name', 'like', '%' . $name . '%');
+                                     });
         if($from != null) {
             $orders->where('created_at', '>=', $from);
         }
@@ -22,7 +31,6 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         if ($to != null) {
             $orders->where('created_at', '<=', $to);
         }
-
         return $orders->get();
     }
 

@@ -6,6 +6,6 @@ use App\Repositories\RepositoryInterface;
 
 interface OrderRepositoryInterface extends RepositoryInterface
 {
-    public function searchOrder($billName = "");
+    public function searchOrder($name = "");
 
 }

@@ -19,10 +19,11 @@ class Order extends Model
         'status'
     ];
 
-    public function User(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+
     public function orderProducts(): hasMany
     {
         return $this->hasMany(OrderProduct::class)
@@ -30,5 +31,9 @@ class Order extends Model
                     ->groupBy('product_id');
     }
 
+    public function products(): belongsToMany
+    {
+        return $this->belongsToMany(Product::class);
+    }
 
 }

@@ -15,7 +15,7 @@
 		</div>
 		<div class="card-body d-flex">
 			<form action="" class="d-flex" role="search">
-				<input class="form-control me-2" type="search" placeholder="Search Order name..."
+				<input class="form-control me-2" type="search" placeholder="Search key..."
 					   aria-label="Search" name="name" value="{{app('request')->input('name')}}">
 				<div class="search-date">from</div>
 				<input class="form-control me-2" type="date" aria-label="Search"
